@@ -3,13 +3,29 @@ package com.henlf.orm.util;
 import java.lang.reflect.*;
 import java.util.Arrays;
 
+/**
+ * 方法返回值解析工具类
+ */
 public class ReturnTypeResolver {
+    /**
+     * 解析返回类型
+     * @param method
+     * @param srcType 方法所属类的类型
+     * @return
+     */
     public static Type resolveReturnType(Method method, Type srcType) {
         Type returnType = method.getGenericReturnType();
         Class<?> declaringClass = method.getDeclaringClass();
         return resolveType(returnType, srcType, declaringClass);
     }
 
+    /**
+     *
+     * @param type 方法返回值类型
+     * @param srcType 方法所属类的类型
+     * @param declaringClass 声明类类型
+     * @return
+     */
     private static Type resolveType(Type type, Type srcType, Class<?> declaringClass) {
         if (type instanceof TypeVariable) {
             return resolveTypeVar((TypeVariable<?>) type, srcType, declaringClass);

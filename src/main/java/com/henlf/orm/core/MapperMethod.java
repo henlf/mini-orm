@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 public class MapperMethod {
     private SqlCommand sqlCommand;
@@ -14,6 +15,11 @@ public class MapperMethod {
     public MapperMethod(Method method, Class<?> mapperInterface, SqlCommand sqlCommand) {
         this.sqlCommand = sqlCommand;
         this.methodSignature = new MethodSignature(method, mapperInterface);
+    }
+
+    public Object execute(Object[] args) {
+
+        return null;
     }
 
     public SqlCommand getSqlCommand() {

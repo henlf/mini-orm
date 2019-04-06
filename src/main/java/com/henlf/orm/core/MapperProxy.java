@@ -7,8 +7,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Map;
 
-public class MapperProxy implements InvocationHandler {
-    private MapperInterface mapperInterface;
+public class MapperProxy<T> implements InvocationHandler {
+    private final MapperInterface mapperInterface;
 
     public MapperProxy(MapperInterface mapperInterface) {
         this.mapperInterface = mapperInterface;
@@ -23,11 +23,11 @@ public class MapperProxy implements InvocationHandler {
                 return invokeDefaultMethod(proxy, method, args);
             }
         } catch (Exception e) {
-
+            throw e;
         }
 
-        // TODO
-        return null;
+        MapperMethod mapperMethod = mapperInterface.cachedMapperMethod(method);
+        return mapperMethod.execute(args);
     }
 
     private Object invokeDefaultMethod(Object proxy, Method method, Object[] args)
